@@ -1,0 +1,29 @@
+{
+  "students": [
+    {
+      "name": "leon",
+      "status": "Boss Man",
+      "currentOccupation": "Baller"
+    },
+    {
+      "name": "calvin",
+      "status": "buffering",
+      "currentOccupation": "100Dev"
+    },
+    {
+      "name": "hector",
+      "status": "100Deving",
+      "currentOccupation": "100Dev"
+    },
+    {
+      "name": "jose",
+      "status": "kid music jams",
+      "currentOccupation": "100Dev"
+    },
+    {
+      "name": "sean",
+      "status": "learning",
+      "currentOccupation": "100Dev"
+    }
+  ]
+}
