@@ -6,13 +6,15 @@ const figlet = require('figlet')
 const buffer = require('buffer')
 
 
-const readWrite = (file, contentType) => {
-  fs.readFile(file, function(err, data) {
-    res.writeHead(200, {'Content-Type': contentType});
-    res.write(data);
-    res.end();
-  });
-}
+
+
+fs.readFile('./students.json', 'utf8', (err, jsonString) => {
+  if (err){
+    console.log('File read failed', err);
+    return;
+  }
+  console.log('File data:', jsonString)
+});
 
 // const requestStudentApi = ()
 //     res.writeHead(200, {'Content-Type': 'application/json'});
@@ -29,6 +31,13 @@ const server = http.createServer((req, res) => {
   const page = url.parse(req.url).pathname;
   const params = querystring.parse(url.parse(req.url).query);
   console.log(page);
+  const readWrite = (file, contentType) => {
+  fs.readFile(file, function(err, data) {
+    res.writeHead(200, {'Content-Type': contentType});
+    res.write(data);
+    res.end();
+  });
+}
   if (page == '/') {
     readWrite('index.html', 'text/html')
   }
@@ -45,35 +54,12 @@ const server = http.createServer((req, res) => {
     if('student' in params){
       if(params['student'] == 'leon'){
         res.writeHead(200, {'Content-Type': 'application/json'});
-        const objToJson = {
-          "students": [
+        const objToJson = 
             {
               "name": "leon",
               "status": "Boss Man and technically not student",
               "currentOccupation": "Baller"
-            },
-            {
-              "name": "calvin",
-              "status": "buffering",
-              "currentOccupation": "100Dev"
-            },
-            {
-              "name": "hector",
-              "status": "100Deving",
-              "currentOccupation": "100Dev"
-            },
-            {
-              "name": "jose",
-              "status": "kid music jams",
-              "currentOccupation": "100Dev"
-            },
-            {
-              "name": "sean",
-              "status": "learning",
-              "currentOccupation": "100Dev"
             }
-          ]
-        }
         res.end(JSON.stringify(objToJson));
       }
       else if(params['student'] != 'leon'){
