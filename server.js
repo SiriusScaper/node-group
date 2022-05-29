@@ -15,23 +15,21 @@ const readWrite = (file, contentType) => {
   });
 }
 
+
+// Read the students.json and pass in the data
+// TODO: Parse the obj and pass it to the api route
+// const readJson = ()
 fs.readFile('./students.json', 'utf8', (err, jsonString) => {
   if (err){
     console.log('File read failed', err);
     return;
+  } try {
+    const student = JSON.parse(jsonString);
+    console.log('name:', student.name)
+  } catch(err){
+    console.log('Error parsing JSON', err)
   }
-  console.log('File data:', jsonString)
 });
-
-// const requestStudentApi = ()
-//     res.writeHead(200, {'Content-Type': 'application/json'});
-//     const objToJson = {
-//       name: "leon",
-//       status: "Boss Man",
-//       currentOccupation: "Baller"
-//     }
-//     res.end(JSON.stringify(objToJson));
-
     
 
   const page = url.parse(req.url).pathname;
