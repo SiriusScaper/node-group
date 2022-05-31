@@ -1,5 +1,5 @@
-{
-  "students": [
+
+[
     {
       "name": "leon",
       "status": "Boss Man",
@@ -26,4 +26,3 @@
       "currentOccupation": "100Dev"
     }
   ]
-}

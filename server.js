@@ -6,6 +6,15 @@ const figlet = require('figlet')
 const buffer = require('buffer')
 
 
+
+// Read the students.json and pass in the data
+// TODO: Parse the obj and pass it to the api route
+
+let data = fs.readFileSync('students.json');
+let student = JSON.parse(data);
+student.forEach((name) => {console.log(name.name)});
+
+
 const server = http.createServer((req, res) => {
 const readWrite = (file, contentType) => {
   fs.readFile(file, function(err, data) {
@@ -16,33 +25,23 @@ const readWrite = (file, contentType) => {
 }
 
 
-// Read the students.json and pass in the data
-// TODO: Parse the obj and pass it to the api route
-// const readJson = ()
-fs.readFile('./students.json', 'utf8', (err, jsonString) => {
-  if (err){
-    console.log('File read failed', err);
-    return;
-  } try {
-    const student = JSON.parse(jsonString);
-    console.log('name:', student.name)
-  } catch(err){
-    console.log('Error parsing JSON', err)
-  }
-});
-    
-
   const page = url.parse(req.url).pathname;
   const params = querystring.parse(url.parse(req.url).query);
   console.log(page);
-  if (page == '/') {
-    readWrite('index.html', 'text/html')
-  }
-  else if (page == '/otherpage') {
-    readWrite('otherpage.html', 'text/html')
-  }
-  else if (page == '/otherotherpage') {
-    readWrite('otherotherpage.html', 'text/html')
+
+  switch (page) {
+    case '/':   
+      readWrite('index.html', 'text/html');
+      break;
+    case '/otherpage':
+      readWrite('otherpage.html', 'text/html');
+      break;
+    case '/otherotherpage':
+      readWrite('otherotherpage.html', 'text/html');
+      break;
+    case '/api':
+      readWrite('otherotherpage.html', 'text/html');
+      break;
   }
   
   
