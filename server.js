@@ -2,25 +2,25 @@ const http = require('http');
 const fs = require('fs')
 const url = require('url');
 const querystring = require('querystring');
-const figlet = require('figlet')
-const buffer = require('buffer')
+const figlet = require('figlet');
+
+
 
 
 
 // Read the students.json and pass in the data
 // TODO: Parse the obj and pass it to the api route
-
-let data = fs.readFileSync('students.json');
-let student = JSON.parse(data);
-student.forEach((name) => {console.log(name.name)});
-
+// const studentsData = fs.readFileSync('students.json');
 
 const server = http.createServer((req, res) => {
-const readWrite = (file, contentType) => {
-  fs.readFile(file, function(err, data) {
-    res.writeHead(200, {'Content-Type': contentType});
-    res.write(data);
-    res.end();
+  
+  const studentsObj = JSON.parse(fs.readFileSync('students.json'));
+  // Function routes to html pages
+  const readWrite = (file, contentType) => {
+    fs.readFile(file, function(err, data) {
+      res.writeHead(200, {'Content-Type': contentType});
+      res.write(data);
+      res.end();
   });
 }
 
@@ -40,57 +40,46 @@ const readWrite = (file, contentType) => {
       readWrite('otherotherpage.html', 'text/html');
       break;
     case '/api':
-      readWrite('otherotherpage.html', 'text/html');
-      break;
-  }
-  
-  
-  // Change this to reflect reading data from the students.json
-  else if (page == '/api') {
-    if('student' in params){
-      if(params['student'] == 'leon'){
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        const objToJson = 
-            {
-              "name": "leon",
-              "status": "Boss Man and technically not student",
-              "currentOccupation": "Baller"
-            }
-        res.end(JSON.stringify(objToJson));
-      }
-      else if(params['student'] != 'leon'){
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        const objToJson = {
-          name: "unknown",
-          status: "unknown",
-          currentOccupation: "unknown"
+      let personName = 'unknown';
+      let personOccupation = 'unknown'; 
+      let personStatus = 'unknown';
+      // var studentMatch = studentsObj.filter(
+   
+      // )
+      if(params['student']== studentsObj.name){
+        personName = studentMatch.name;
+        personOccupation = studentMatch.currentOccupation;
+        personStatus = studentMatch.status;
+      } 
+      res.writeHead(200, {'Content-Type': 'application/json'});
+          let  objToJson = {
+            name: personName,
+            status: personStatus,
+            currentOccupation: personOccupation
         }
         res.end(JSON.stringify(objToJson));
-      }//student != leon
-    }//student if
-  }//else if
-  else if (page == '/css/style.css'){
-    fs.readFile('css/style.css', function(err, data) {
-      res.write(data);
-      res.end();
-    });
-  }else if (page == '/js/main.js'){
-    fs.readFile('js/main.js', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/javascript'});
-      res.write(data);
-      res.end();
-    });
-  }else{
-    figlet('404!!', function(err, data) {
-      if (err) {
-          console.log('Something went wrong...');
-          console.dir(err);
-          return;
-      }
-      res.write(data);
-      res.end();
-    });
+      break;
+    case '/css/style.css':
+        fs.readFile('css/style.css', function(err, data) {
+          res.write(data);
+          res.end();
+        });
+      break;
+    case '/js/main.js':
+      readWrite('js/main.js', 'text/javascript')
+      break;
+      default: 
+      figlet('404!!', function(err, data) {
+        if (err) {
+            console.log('Something went wrong...');
+            console.dir(err);
+            return;
+        }
+        res.write(data);
+        res.end();
+      });
+      break;
   }
-});
+ });
 
 server.listen(8000);
