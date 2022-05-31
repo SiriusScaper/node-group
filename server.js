@@ -15,6 +15,7 @@ const figlet = require('figlet');
 const server = http.createServer((req, res) => {
   
   const studentsObj = JSON.parse(fs.readFileSync('students.json'));
+  console.log(studentsObj)
   // Function routes to html pages
   const readWrite = (file, contentType) => {
     fs.readFile(file, function(err, data) {
@@ -47,7 +48,7 @@ const server = http.createServer((req, res) => {
    
       // )
       if(params['student']== 'leon'){
-        personName = 'leaon'
+        personName = 'leon'
         personOccupation = 'Boss Man'
         personStatus = 'Baller'
         // personName = studentMatch.name;
