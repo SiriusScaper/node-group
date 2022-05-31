@@ -46,10 +46,13 @@ const server = http.createServer((req, res) => {
       // var studentMatch = studentsObj.filter(
    
       // )
-      if(params['student']== studentsObj.name){
-        personName = studentMatch.name;
-        personOccupation = studentMatch.currentOccupation;
-        personStatus = studentMatch.status;
+      if(params['student']== 'leon'){
+        personName = 'leaon'
+        personOccupation = 'Boss Man'
+        personStatus = 'Baller'
+        // personName = studentMatch.name;
+        // personOccupation = studentMatch.currentOccupation;
+        // personStatus = studentMatch.status;
       } 
       res.writeHead(200, {'Content-Type': 'application/json'});
           let  objToJson = {
