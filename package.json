@@ -6,6 +6,26 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "dev": "nodemon server.js"
-  }
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "name": "node-group",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiriusScaper/node-group.git"
+  },
+  "keywords": [
+    "group",
+    "project",
+    "json"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiriusScaper/node-group/issues"
+  },
+  "homepage": "https://github.com/SiriusScaper/node-group#readme"
 }
